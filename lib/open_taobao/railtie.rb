@@ -3,11 +3,12 @@ require 'rails'
 module TOP
   class Railtie < Rails::Railtie
     generators do
-      require 'generators/install_generator'
+      require 'generators/top/install_generator'
     end
 
     initializer 'load taobao.yml' do
-      TOP.load(Rails.root + 'config/taobao.yml')
+      config_file = Rails.root + 'config/taobao.yml'
+      TOP.load(config_file) if config_file.file?
     end
   end
 end
