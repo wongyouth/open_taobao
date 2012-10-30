@@ -5,7 +5,7 @@ require 'crack'
 require 'patron'
 require 'open_taobao/version'
 
-module TOP
+module OpenTaobao
   REQUEST_TIMEOUT = 10
   API_VERSION = '2.0'
   USER_AGENT = "open_taobao-v#{VERSION}"

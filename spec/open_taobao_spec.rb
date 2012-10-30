@@ -2,7 +2,7 @@
 require 'spec_helper'
 require 'tempfile'
 
-describe TOP do
+describe OpenTaobao do
  ENDPOINT = "http://gw.api.tbsandbox.com/router/rest"
 
   before(:each) do
@@ -25,8 +25,8 @@ describe TOP do
 
   # we only need to load config file here once for all test
   it "should load config file" do
-    TOP.load(config_file.path)
-    TOP.config.should == {
+    OpenTaobao.load(config_file.path)
+    OpenTaobao.config.should == {
       'app_key'    => 'test',
       'secret_key' => 'test',
       'pid'        => 'test',
@@ -36,7 +36,7 @@ describe TOP do
 
   it "should merge with default options" do
     options = {:foo => 'foo', :bar => 'bar'}
-    TOP.full_options(options).should ==
+    OpenTaobao.full_options(options).should ==
     {
       :foo         => 'foo',
       :bar         => 'bar',
@@ -60,7 +60,7 @@ describe TOP do
       'nick'       => '商家测试帐号17',
       'fields'     => 'nick,location.state,location.city'
     }
-    TOP.sorted_option_string(options).should == "app_keytestfieldsnick,location.state,location.cityformatxmlmethodtaobao.user.getnick商家测试帐号17sign_methodmd5timestamp2011-07-01 13:52:03v2.0"
+    OpenTaobao.sorted_option_string(options).should == "app_keytestfieldsnick,location.state,location.cityformatxmlmethodtaobao.user.getnick商家测试帐号17sign_methodmd5timestamp2011-07-01 13:52:03v2.0"
   end
 
   # ref: http://open.taobao.com/doc/detail.htm?spm=0.0.0.30.iamImZ&id=111
@@ -75,7 +75,7 @@ describe TOP do
       'nick'       => '商家测试帐号17',
       'fields'     => 'nick,location.state,location.city'
     }
-    TOP.sign(options).should == '5029C3055D51555112B60B33000122D5'
+    OpenTaobao.sign(options).should == '5029C3055D51555112B60B33000122D5'
   end
 
   it "should return query string for url" do
@@ -87,11 +87,11 @@ describe TOP do
       'nick'       => '商家测试帐号17',
       'fields'     => 'nick,location.state,location.city'
     }
-    TOP.query_string(options).should include("sign=")
-    TOP.query_string(options).should include("timestamp=")
-    TOP.query_string(options).should include("method=taobao.user.get")
-    TOP.query_string(options).should include("format=xml")
-    TOP.query_string(options).should include("partner_id=top-apitools")
+    OpenTaobao.query_string(options).should include("sign=")
+    OpenTaobao.query_string(options).should include("timestamp=")
+    OpenTaobao.query_string(options).should include("method=taobao.user.get")
+    OpenTaobao.query_string(options).should include("format=xml")
+    OpenTaobao.query_string(options).should include("partner_id=top-apitools")
   end
 
   it "should return url with endpoint" do
@@ -103,7 +103,7 @@ describe TOP do
       'nick'      => '商家测试帐号17',
       'fields'    => 'nick,location.state,location.city'
     }
-    TOP.url(options).should start_with(ENDPOINT)
+    OpenTaobao.url(options).should start_with(ENDPOINT)
   end
 
   it "should parse result data" do
@@ -118,7 +118,7 @@ describe TOP do
       }
     '
 
-    TOP.parse_result(data).should == {
+    OpenTaobao.parse_result(data).should == {
       "item_get_response" => {
         'item' => {
           "item_imgs" => { "item_img" => []}
@@ -128,18 +128,18 @@ describe TOP do
   end
 
   it "should support get method" do
-    TOP.initialize_session
+    OpenTaobao.initialize_session
     params = {
       :method => "taobao.itemcats.get",
       :fields => "cid,parent_id,name,is_parent",
       :parent_cid => 0
     }
 
-    TOP.get(params)['itemcats_get_response']['item_cats']['item_cat'].should be_a(Array)
+    OpenTaobao.get(params)['itemcats_get_response']['item_cats']['item_cat'].should be_a(Array)
   end
 end
 
-# TOP.load(File.expand_path('../taobao.yml',__FILE__))
+# OpenTaobao.load(File.expand_path('../taobao.yml',__FILE__))
 # 
 # def pretty(json)
 #   puts JSON.pretty_generate(json)
@@ -151,16 +151,16 @@ end
 #   :parent_cid => 0
 # }
 # 
-# pretty(TOP.get(params))
+# pretty(OpenTaobao.get(params))
 # 
 # params = {
 #   :method => "taobao.taobaoke.items.get",
 #   :fields => "num_iid,title,nick,pic_url,price,click_url, commission,commission_num,volume",
 #   :cid => 30, # 男装
-#   :pid => TOP::PID
+#   :pid => OpenTaobao::PID
 # }
 # 
-# pretty(TOP.get(params))
+# pretty(OpenTaobao.get(params))
 # 
 # params = {
 #   :method => "taobao.item.get",
@@ -168,5 +168,5 @@ end
 #   :num_iid => 19276752117
 # }
 # 
-# pretty(TOP.get(params))
+# pretty(OpenTaobao.get(params))
 # 

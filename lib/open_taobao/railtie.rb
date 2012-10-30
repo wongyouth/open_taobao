@@ -1,6 +1,6 @@
 require 'rails'
 
-module TOP
+module OpenTaobao
   class Railtie < Rails::Railtie
     generators do
       require 'generators/top/install_generator'
@@ -8,7 +8,7 @@ module TOP
 
     initializer 'load taobao.yml' do
       config_file = Rails.root + 'config/taobao.yml'
-      TOP.load(config_file) if config_file.file?
+      OpenTaobao.load(config_file) if config_file.file?
     end
   end
 end
