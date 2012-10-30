@@ -108,14 +108,14 @@ describe OpenTaobao do
 
   it "should parse result data" do
     data = '
-      "item_get_response": {
+      {"item_get_response": {
           "item": {
             "item_imgs": {
               "item_img": [
               ]
             }
           }
-      }
+      }}
     '
 
     OpenTaobao.parse_result(data).should == {

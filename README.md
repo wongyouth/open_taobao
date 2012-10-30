@@ -20,7 +20,7 @@ Run generate to complete install:
 
     $ rails g open_taobao:install
 
-this will create taobao.yml in your config/ directory.
+在你的`Rails`项目的`config`目录下会生成一个`taobao.yml`文件,
 打开taobao.yml文件，设置你自己的`app_key`, `secret_key`, 淘宝客的`pid`
 
 ## Usage
@@ -33,7 +33,7 @@ this will create taobao.yml in your config/ directory.
       :parent_cid => 0
     )
 
-返回内容将自动转化微hash格式。
+返回内容将自动转化为hash格式。
 
 ## Contributing
 
