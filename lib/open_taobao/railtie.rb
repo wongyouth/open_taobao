@@ -3,7 +3,7 @@ require 'rails'
 module OpenTaobao
   class Railtie < Rails::Railtie
     generators do
-      require 'generators/top/install_generator'
+      require 'generators/open_taobao/install_generator'
     end
 
     initializer 'load taobao.yml' do

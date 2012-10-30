@@ -15,7 +15,6 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = OpenTaobao::VERSION
 
-  gem.add_dependency "crack"
   gem.add_dependency "patron"
   gem.add_development_dependency "rspec"
   gem.add_development_dependency "autotest"

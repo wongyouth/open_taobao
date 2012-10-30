@@ -1,7 +1,7 @@
 require 'active_support/core_ext'
 require 'digest'
 require 'yaml'
-require 'crack'
+require 'json'
 require 'patron'
 require 'open_taobao/version'
 
@@ -64,7 +64,7 @@ module OpenTaobao
     end
 
     def parse_result(data)
-      Crack::JSON.parse(data)
+      JSON.parse(data)
     end
 
     def get(params)

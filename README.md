@@ -1,6 +1,6 @@
 # OpenTaobao
 
-TODO: Write a gem description
+Taobao Open Platform client for ruby. Rails3 is supported.
 
 ## Installation
 
@@ -16,9 +16,24 @@ Or install it yourself as:
 
     $ gem install open_taobao
 
+Run generate to complete install:
+
+    $ rails g open_taobao:install
+
+this will create taobao.yml in your config/ directory.
+打开taobao.yml文件，设置你自己的`app_key`, `secret_key`, 淘宝客的`pid`
+
 ## Usage
 
-TODO: Write usage instructions here
+调用`OpenTaobao.get`方法，传入相应参数：
+
+    hash = OpenTaobao.get(
+      :method => "taobao.itemcats.get",
+      :fields => "cid,parent_id,name,is_parent",
+      :parent_cid => 0
+    )
+
+返回内容将自动转化微hash格式。
 
 ## Contributing
 
