@@ -1,20 +1,31 @@
 # encoding: utf-8
 require 'spec_helper'
+require 'tempfile'
 
 describe OpenTaobao do
+ ENDPOINT = "http://gw.api.tbsandbox.com/router/rest"
+
   before(:each) do
     @now = Time.parse('2012-10-29 23:30')
     Time.stub(:now) { @now }
-
-    OpenTaobao.stub(:config) {{
-      'app_key'    => 'test',
-      'secret_key' => 'test',
-      'pid'        => 'test',
-      'endpoint'   => "http://gw.api.tbsandbox.com/router/rest"
-    }}
   end
 
-  it "should return config" do
+  let(:config_file) do
+    file = Tempfile.new 'taobao'
+    File.open file.path, 'w+' do |f|
+      f.write <<-EOS.gsub(/^ +/, '')
+        app_key:    'test'
+        secret_key: 'test'
+        pid:        'test'
+        endpoint:   '#{ENDPOINT}'
+      EOS
+    end
+    file
+  end
+
+  # we only need to load config file here once for all test
+  it "should load config file" do
+    OpenTaobao.load(config_file.path)
     OpenTaobao.config.should == {
       'app_key'    => 'test',
       'secret_key' => 'test',
@@ -89,10 +100,10 @@ describe OpenTaobao do
       :method     => 'taobao.user.get',
       :format     => 'xml',
       :partner_id => 'top-apitools',
-      'nick'       => '商家测试帐号17',
-      'fields'     => 'nick,location.state,location.city'
+      'nick'      => '商家测试帐号17',
+      'fields'    => 'nick,location.state,location.city'
     }
-    OpenTaobao.url(options).should start_with(OpenTaobao.config['endpoint'])
+    OpenTaobao.url(options).should start_with(ENDPOINT)
   end
 
   it "should parse result data" do

@@ -1,20 +1,14 @@
 require 'active_support/core_ext'
 require 'digest'
-require 'open-uri'
 require 'yaml'
 require 'crack'
 require 'patron'
 require 'open_taobao/version'
 
 module OpenTaobao
-  APPKEY = '12673864'
-  APPSECRET = 'd4cb57d3eec5d6f1cbbfd0f430caf282'
-  PID = '32858933'
-  ENDPOINT = "http://gw.api.taobao.com/router/rest"
-
   REQUEST_TIMEOUT = 10
   API_VERSION = '2.0'
-  USER_AGENT = 'open_taobao-v0.1.0'
+  USER_AGENT = "open_taobao-v#{VERSION}"
 
   class << self
     attr_accessor :config, :session
@@ -22,7 +16,6 @@ module OpenTaobao
     def load(config_file)
       @config = YAML.load_file(config_file)
       @config = config[RAILS_ENV] if defined? RAILS_ENV
-      puts config
       apply_settings
     end
 
