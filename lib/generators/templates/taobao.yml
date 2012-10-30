@@ -1,0 +1,18 @@
+development:
+  app_key:    'test'
+  secret_key: 'test'
+  pid:        'test'
+  endpoint:   "http://gw.api.tbsandbox.com/router/rest"
+
+test:
+  app_key:    'test'
+  secret_key: 'test'
+  pid:        'test'
+  endpoint:   "http://gw.api.tbsandbox.com/router/rest"
+
+production:
+  app_key:    'YOUR-KEY'
+  secret_key: 'YOUR-KEY'
+  pid:        'YOUR-PID'
+  endpoint:   "http://gw.api.taobao.com/router/rest"
+
