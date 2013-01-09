@@ -1,4 +1,5 @@
-# OpenTaobao
+OpenTaobao [![Build Status](https://secure.travis-ci.org/wongyouth/open_taobao.png?branch=master)](https://travis-ci.org/wongyouth/open_taobao)
+==========
 
 Taobao Open Platform client for ruby. Rails3 is supported.
 
