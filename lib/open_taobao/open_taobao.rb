@@ -59,7 +59,7 @@ module OpenTaobao
         list << k unless config.has_key? k
       end
 
-      raise "#{list} not included in your yaml file." unless list.empty?
+      raise "[#{list.join(', ')}] not included in your yaml file." unless list.empty?
     end
 
     # setting ENV variables from config

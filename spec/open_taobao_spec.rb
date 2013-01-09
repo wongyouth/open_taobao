@@ -43,7 +43,7 @@ describe OpenTaobao do
 
     expect {
       OpenTaobao.check_config
-    }.to raise_error('["pid"] not included in your yaml file.')
+    }.to raise_error('[pid] not included in your yaml file.')
   end
 
   it "should be able to set timeout for session" do
