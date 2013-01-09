@@ -25,6 +25,8 @@ Run generate to complete install:
 
 ## Usage
 
+### Rails with yaml file configured
+
 调用`OpenTaobao.get`方法，传入相应参数：
 
     hash = OpenTaobao.get(
@@ -34,6 +36,24 @@ Run generate to complete install:
     )
 
 返回内容将自动转化为hash格式。
+
+### plain ruby
+
+    OpenTaobao.config = {
+      'app_key'    => 'test',
+      'secret_key' => 'test',
+      'pid'        => 'test',
+      'endpoint'   => "http://gw.api.tbsandbox.com/router/rest"
+    }
+
+    OpenTaobao.initialize_session
+    OpenTaobao.timeout = 50 # change http timeoute, default is 10 seconds.
+
+    hash = OpenTaobao.get(
+      :method => "taobao.itemcats.get",
+      :fields => "cid,parent_id,name,is_parent",
+      :parent_cid => 0
+    )
 
 ## Contributing
 

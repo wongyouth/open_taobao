@@ -11,7 +11,7 @@ describe OpenTaobao do
   end
 
   let(:config_file) do
-    file = Tempfile.new 'taobao'
+    file = Tempfile.new 'taobao.yml'
     File.open file.path, 'w+' do |f|
       f.write <<-EOS.gsub(/^ +/, '')
         app_key:    'test'
@@ -32,6 +32,24 @@ describe OpenTaobao do
       'pid'        => 'test',
       'endpoint'   => "http://gw.api.tbsandbox.com/router/rest"
     }
+  end
+
+  it "should raise exception if config yaml does not include correct keys" do
+    OpenTaobao.config = {
+      'app_key'    => 'test',
+      'secret_key' => 'test',
+      'endpoint'   => "http://gw.api.tbsandbox.com/router/rest"
+    }
+
+    expect {
+      OpenTaobao.check_config
+    }.to raise_error('["pid"] not included in your yaml file.')
+  end
+
+  it "should be able to set timeout for session" do
+    OpenTaobao.initialize_session
+    OpenTaobao.timeout = 50
+    OpenTaobao.timeout.should == 50
   end
 
   it "should merge with default options" do
@@ -129,6 +147,7 @@ describe OpenTaobao do
 
   it "should support get method" do
     OpenTaobao.initialize_session
+    OpenTaobao.timeout = 50 # travis-ci will failed with the default 10 sec.
     params = {
       :method => "taobao.itemcats.get",
       :fields => "cid,parent_id,name,is_parent",
