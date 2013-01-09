@@ -48,7 +48,6 @@ Run generate to complete install:
     }
 
     OpenTaobao.initialize_session
-    OpenTaobao.timeout = 50 # change http timeoute, default is 10 seconds.
 
     hash = OpenTaobao.get(
       :method => "taobao.itemcats.get",

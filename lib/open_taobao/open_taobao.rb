@@ -77,18 +77,15 @@ module OpenTaobao
       ENV['TAOBAOKE_PID']      = config['pid']
     end
 
-    # delegate timeout to session
-    delegate :timeout, :to => :session
-    def timeout=(time)
-      session.timeout = time
-    end
-
-    # Initialize http sesison, set request header USER_AGENT, timeout value
+    # Initialize http sesison
     def initialize_session
-      @session = Patron::Session.new
-      @session.base_url = config['endpoint'] + '?'
-      @session.headers['User-Agent'] = USER_AGENT
-      @session.timeout = REQUEST_TIMEOUT
+      @session = Faraday.new :url => config['endpoint'] do |builder|
+        begin
+          require 'patron'
+          builder.adapter :patron
+        rescue
+        end
+      end
     end
 
     # Return request signature with MD5 signature method
@@ -128,7 +125,7 @@ module OpenTaobao
     def query_string(params)
       params = full_options params
       params[:sign] = sign params
-      params.to_query
+      "?" + params.to_query
     end
 
     # Return full url with signature.

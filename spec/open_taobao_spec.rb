@@ -46,12 +46,6 @@ describe OpenTaobao do
     }.to raise_error('[pid] not included in your yaml file.')
   end
 
-  it "should be able to set timeout for session" do
-    OpenTaobao.initialize_session
-    OpenTaobao.timeout = 50
-    OpenTaobao.timeout.should == 50
-  end
-
   it "should merge with default options" do
     options = {:foo => 'foo', :bar => 'bar'}
     OpenTaobao.full_options(options).should ==
@@ -147,7 +141,6 @@ describe OpenTaobao do
 
   it "should support get method" do
     OpenTaobao.initialize_session
-    OpenTaobao.timeout = 50 # travis-ci will failed with the default 10 sec.
     params = {
       :method => "taobao.itemcats.get",
       :fields => "cid,parent_id,name,is_parent",
