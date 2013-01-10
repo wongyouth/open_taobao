@@ -21,18 +21,18 @@ Or install it yourself as:
 
     $ gem install open_taobao
 
-Run generate to complete install:
+## Usage
+
+### Rails with yaml file configured
+
+Run generator to generate config file:
 
     $ rails g open_taobao:install
 
 It will generate a `taobao.yml` file under your Rails' config dir.
 Open the file and configure it with your taobao info.
 
-`app_key`, `secret_key`, `pid`, `endpoint` must be configured in your YAML file, otherwise OpenTaobao.load will fail.
-
-## Usage
-
-### Rails with yaml file configured
+Notice: `app_key`, `secret_key`, `pid`, `endpoint` must be included in your YAML file, otherwise OpenTaobao.load will fail.
 
 call `OpenTaobao.get`，with taobao parameters：
 
@@ -42,7 +42,7 @@ call `OpenTaobao.get`，with taobao parameters：
       :parent_cid => 0
     )
 
-The return data will be converted to Hash automatically.
+The return data will be converted to a Hash automatically.
 
 ### plain ruby
 
