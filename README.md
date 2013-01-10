@@ -8,6 +8,7 @@ Taobao Open Platform client for ruby. Rails3 is supported.
 Add this line to your application's Gemfile:
 
     gem 'open_taobao'
+    gem 'patron' # add this line if you want to use [patron][] instead of Net::HTTP
 
 And then execute:
 
@@ -62,3 +63,5 @@ Run generate to complete install:
 3. Commit your changes (`git commit -am 'Added some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+[patron]: https://github.com/toland/patron
