@@ -83,7 +83,8 @@ module OpenTaobao
         begin
           require 'patron'
           builder.adapter :patron
-        rescue
+        rescue LoadError
+          builder.adapter :net_http
         end
       end
     end
