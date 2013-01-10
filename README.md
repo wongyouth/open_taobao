@@ -8,7 +8,10 @@ Taobao Open Platform client for ruby. Rails3 is supported.
 Add this line to your application's Gemfile:
 
     gem 'open_taobao'
-    gem 'patron' # add this line if you want to use [patron][] instead of Net::HTTP
+
+If you want to use [patron][] as http client instead of Net::HTTP, add line below to your Gemfile
+
+    gem 'patron'
 
 And then execute:
 
@@ -22,14 +25,16 @@ Run generate to complete install:
 
     $ rails g open_taobao:install
 
-在你的`Rails`项目的`config`目录下会生成一个`taobao.yml`文件,
-打开taobao.yml文件，设置你自己的`app_key`, `secret_key`, 淘宝客的`pid`
+It will generate a `taobao.yml` file under your Rails' config dir.
+Open the file and configure it with your taobao info.
+
+`app_key`, `secret_key`, `pid`, `endpoint` must be configured in your YAML file, otherwise OpenTaobao.load will fail.
 
 ## Usage
 
 ### Rails with yaml file configured
 
-调用`OpenTaobao.get`方法，传入相应参数：
+call `OpenTaobao.get`，with taobao parameters：
 
     hash = OpenTaobao.get(
       :method => "taobao.itemcats.get",
@@ -37,7 +42,7 @@ Run generate to complete install:
       :parent_cid => 0
     )
 
-返回内容将自动转化为hash格式。
+The return data will be converted to Hash automatically.
 
 ### plain ruby
 
