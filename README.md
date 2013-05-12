@@ -61,6 +61,17 @@ The return data will be converted to a Hash automatically.
       :parent_cid => 0
     )
 
+### get query string
+
+If you want the query string with some params just pass the params to OpenTaobao.url() the same as OpenTaobao.get().
+The query string will change every time your executed because timestamps changed.
+
+    OpenTaobao.url(
+      :method => "taobao.itemcats.get",
+      :fields => "cid,parent_id,name,is_parent",
+      :parent_cid => 0
+    )
+
 ## Contributing
 
 1. Fork it
