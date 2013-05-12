@@ -3,6 +3,10 @@ OpenTaobao [![Build Status](https://secure.travis-ci.org/wongyouth/open_taobao.p
 
 Taobao Open Platform client for ruby. Rails3 is supported.
 
+## NOTICE
+
+`pid` is removed from config file, it not required any more.
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -49,7 +53,6 @@ The return data will be converted to a Hash automatically.
     OpenTaobao.config = {
       'app_key'    => 'test',
       'secret_key' => 'test',
-      'pid'        => 'test',
       'endpoint'   => "http://gw.api.tbsandbox.com/router/rest"
     }
 

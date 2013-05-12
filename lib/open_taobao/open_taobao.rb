@@ -34,7 +34,6 @@ module OpenTaobao
     #
     #   app_key:    "YOUR APP KEY"
     #   secret_key: "YOUR SECRET KEY"
-    #   pid:        "YOUR TAOBAOKE pid"
     #   endpoint:   "TAOBAO GATEWAY API URL"
     #
     def load(config_file)
@@ -55,7 +54,7 @@ module OpenTaobao
     # raise exception if config key missed in YAML file
     def check_config
       list = []
-      %w(app_key secret_key pid endpoint).map do |k|
+      %w(app_key secret_key endpoint).map do |k|
         list << k unless config.has_key? k
       end
 
@@ -74,7 +73,7 @@ module OpenTaobao
       ENV['TAOBAO_API_KEY']    = config['app_key']
       ENV['TAOBAO_SECRET_KEY'] = config['secret_key']
       ENV['TAOBAO_ENDPOINT']   = config['endpoint']
-      ENV['TAOBAOKE_PID']      = config['pid']
+      ENV['TAOBAOKE_PID']      = config['pid']  # for compatible with v0.0.3
     end
 
     # Initialize http sesison
@@ -91,7 +90,11 @@ module OpenTaobao
 
     # Return request signature with MD5 signature method
     def sign(params)
-      Digest::MD5::hexdigest("#{config['secret_key']}#{sorted_option_string params}#{config['secret_key']}").upcase
+      Digest::MD5::hexdigest(wrap_with_secret sorted_option_string(params)).upcase
+    end
+
+    def wrap_with_secret(s)
+      config['secret_key'] + s + config['secret_key']
     end
 
     # Return sorted request parameter by request key

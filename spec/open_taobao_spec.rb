@@ -5,45 +5,42 @@ require 'tempfile'
 describe OpenTaobao do
  ENDPOINT = "http://gw.api.tbsandbox.com/router/rest"
 
-  before(:each) do
-    @now = Time.parse('2012-10-29 23:30')
-    Time.stub(:now) { @now }
-  end
-
   let(:config_file) do
     file = Tempfile.new 'taobao.yml'
     File.open file.path, 'w+' do |f|
       f.write <<-EOS.gsub(/^ +/, '')
         app_key:    'test'
         secret_key: 'test'
-        pid:        'test'
         endpoint:   '#{ENDPOINT}'
       EOS
     end
     file
   end
 
+  before(:each) do
+    @now = Time.parse('2012-10-29 23:30')
+    Time.stub(:now) { @now }
+    OpenTaobao.load(config_file.path)
+  end
+
   # we only need to load config file here once for all test
   it "should load config file" do
-    OpenTaobao.load(config_file.path)
     OpenTaobao.config.should == {
       'app_key'    => 'test',
       'secret_key' => 'test',
-      'pid'        => 'test',
       'endpoint'   => "http://gw.api.tbsandbox.com/router/rest"
     }
   end
 
   it "should raise exception if config yaml does not include correct keys" do
     OpenTaobao.config = {
-      'app_key'    => 'test',
       'secret_key' => 'test',
       'endpoint'   => "http://gw.api.tbsandbox.com/router/rest"
     }
 
     expect {
       OpenTaobao.check_config
-    }.to raise_error('[pid] not included in your yaml file.')
+    }.to raise_error('[app_key] not included in your yaml file.')
   end
 
   it "should merge with default options" do

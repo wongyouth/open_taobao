@@ -4,7 +4,7 @@ require File.expand_path('../lib/open_taobao/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.authors       = ["wongyouth"]
   gem.email         = ["wongyouth@gmail.com"]
-  gem.description   = %q{淘宝开放平台ruby版，支持Rails3}
+  gem.description   = %q{淘宝开放平台ruby版，支持Rails3~}
   gem.summary       = %q{Open Taobao API for ruby}
   gem.homepage      = "http://github.com/wongyouth/open_taobao"
 
