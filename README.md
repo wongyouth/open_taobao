@@ -36,7 +36,7 @@ Run generator to generate config file:
 It will generate a `taobao.yml` file under your Rails' config dir.
 Open the file and configure it with your taobao info.
 
-Notice: `app_key`, `secret_key`, `pid`, `endpoint` must be included in your YAML file, otherwise OpenTaobao.load will fail.
+Notice: `app_key`, `secret_key`, `endpoint` must be included in your YAML file, otherwise OpenTaobao.load will fail.
 
 call `OpenTaobao.get`，with taobao parameters：
 
