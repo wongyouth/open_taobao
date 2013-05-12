@@ -5,7 +5,7 @@ Taobao Open Platform client for ruby. Rails3 is supported.
 
 ## NOTICE
 
-`pid` is removed from config file, it not required any more.
+`pid` is removed from config file, it's not required any more.
 
 ## Installation
 
