@@ -19,6 +19,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency "multi_json"
   gem.add_dependency "faraday"
   gem.add_development_dependency "rspec"
+  gem.add_development_dependency "debugger"
   gem.add_development_dependency "autotest"
   gem.add_development_dependency "rake"
 end
