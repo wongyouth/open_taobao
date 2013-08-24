@@ -26,6 +26,8 @@ module OpenTaobao
   API_VERSION = '2.0'
   USER_AGENT = "open_taobao-v#{VERSION}"
 
+  class Error < StandardError; end
+
   class << self
     attr_accessor :config, :session
 
@@ -93,8 +95,9 @@ module OpenTaobao
       Digest::MD5::hexdigest(wrap_with_secret sorted_option_string(params)).upcase
     end
 
+    # wrapped with secret_key
     def wrap_with_secret(s)
-      config['secret_key'] + s + config['secret_key']
+      "#{config['secret_key']}#{s}#{config['secret_key']}"
     end
 
     # Return sorted request parameter by request key
@@ -125,11 +128,15 @@ module OpenTaobao
       }.merge params
     end
 
-    # Retrun query string with signature.
-    def query_string(params)
+    def query_hash(params)
       params = full_options params
       params[:sign] = sign params
-      "?" + params.to_query
+      params
+    end
+
+    # Retrun query string with signature.
+    def query_string(params)
+      "?" + query_hash(params).to_query
     end
 
     # Return full url with signature.
@@ -139,13 +146,34 @@ module OpenTaobao
 
     # Return a parsed JSON object.
     def parse_result(data)
-      JSON.parse(data)
+      MultiJson.decode(data)
     end
 
-    # Return response in JSON format
+    # Request by get method and return result in JSON format
     def get(params)
       path = query_string(params)
       parse_result session.get(path).body
+    end
+
+    # Request by get method and return result in JSON format
+    # Raise OpenTaobao::Error if returned with error_response
+    def get!(params)
+      response = get params
+      raise Error.new(response['error_response']) if response.has_key?('error_response')
+      response
+    end
+
+    # Request by post method and return result in JSON format
+    def post(params)
+      parse_result session.post('', query_hash(params).to_query).body
+    end
+
+    # Request by post method and return result in JSON format
+    # Raise OpenTaobao::Error if returned with error_response
+    def post!(params)
+      response = post params
+      raise Error.new(response['error_response']) if response.has_key?('error_response')
+      response
     end
   end
 end

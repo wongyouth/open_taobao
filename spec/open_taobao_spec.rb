@@ -146,6 +146,65 @@ describe OpenTaobao do
 
     OpenTaobao.get(params)['itemcats_get_response']['item_cats']['item_cat'].should be_a(Array)
   end
+
+  it "should support get! method" do
+    OpenTaobao.initialize_session
+    params = {
+      :method => "taobao.itemcats.get",
+      :fields => "cid,parent_id,name,is_parent",
+      :parent_cid => 0
+    }
+
+    OpenTaobao.get!(params)['itemcats_get_response']['item_cats']['item_cat'].should be_a(Array)
+  end
+
+  it "should raise error by get! method" do
+    OpenTaobao.initialize_session
+    params = {
+      :method => "taobao.itemcats.no-method",
+      :fields => "cid,parent_id,name,is_parent",
+      :parent_cid => 0
+    }
+
+    expect {
+      OpenTaobao.get!(params)
+    }.to raise_error OpenTaobao::Error
+  end
+
+  it "should support post method" do
+    OpenTaobao.initialize_session
+    params = {
+      :method => "taobao.itemcats.get",
+      :fields => "cid,parent_id,name,is_parent",
+      :parent_cid => 0
+    }
+
+    OpenTaobao.post(params)['itemcats_get_response']['item_cats']['item_cat'].should be_a(Array)
+  end
+
+  it "should support post! method" do
+    OpenTaobao.initialize_session
+    params = {
+      :method => "taobao.itemcats.get",
+      :fields => "cid,parent_id,name,is_parent",
+      :parent_cid => 0
+    }
+
+    OpenTaobao.post!(params)['itemcats_get_response']['item_cats']['item_cat'].should be_a(Array)
+  end
+
+  it "should raise error by post! method" do
+    OpenTaobao.initialize_session
+    params = {
+      :method => "taobao.itemcats.no-method",
+      :fields => "cid,parent_id,name,is_parent",
+      :parent_cid => 0
+    }
+
+    expect {
+      OpenTaobao.post!(params)
+    }.to raise_error OpenTaobao::Error
+  end
 end
 
 # OpenTaobao.load(File.expand_path('../taobao.yml',__FILE__))

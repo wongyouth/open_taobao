@@ -38,7 +38,7 @@ Open the file and configure it with your taobao info.
 
 Notice: `app_key`, `secret_key`, `endpoint` must be included in your YAML file, otherwise OpenTaobao.load will fail.
 
-call `OpenTaobao.get`，with taobao parameters：
+call `OpenTaobao.get` or `OpenTaoboa.post`，with taobao parameters：
 
     hash = OpenTaobao.get(
       :method => "taobao.itemcats.get",
@@ -47,6 +47,8 @@ call `OpenTaobao.get`，with taobao parameters：
     )
 
 The return data will be converted to a Hash automatically.
+
+Also `OpenTaobao.get!` and `OpenTaobao.post!` are avaliable, which will raise an `OpenTaobao::Error` if a `error_response` receieved.
 
 ### plain ruby
 

@@ -16,7 +16,7 @@ Gem::Specification.new do |gem|
   gem.version       = OpenTaobao::VERSION
 
   gem.add_dependency "activesupport"
-  gem.add_dependency "json"
+  gem.add_dependency "multi_json"
   gem.add_dependency "faraday"
   gem.add_development_dependency "rspec"
   gem.add_development_dependency "autotest"

@@ -1,7 +1,7 @@
 require 'active_support/core_ext/object'
 require 'digest'
 require 'faraday'
-require 'json'
+require 'multi_json'
 require 'open_taobao/version'
 require 'yaml'
 
