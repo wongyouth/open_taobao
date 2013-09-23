@@ -159,7 +159,7 @@ module OpenTaobao
     # Raise OpenTaobao::Error if returned with error_response
     def get!(params)
       response = get params
-      raise Error.new(response['error_response']) if response.has_key?('error_response')
+      raise Error.new(MultiJson.encode response['error_response']) if response.has_key?('error_response')
       response
     end
 
@@ -172,7 +172,7 @@ module OpenTaobao
     # Raise OpenTaobao::Error if returned with error_response
     def post!(params)
       response = post params
-      raise Error.new(response['error_response']) if response.has_key?('error_response')
+      raise Error.new(MultiJson.encode response['error_response']) if response.has_key?('error_response')
       response
     end
   end

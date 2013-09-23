@@ -205,6 +205,22 @@ describe OpenTaobao do
       OpenTaobao.post!(params)
     }.to raise_error OpenTaobao::Error
   end
+
+  it "open_taobao error should be a json string" do
+    OpenTaobao.initialize_session
+    params = {
+      :method => "taobao.itemcats.no-method",
+      :fields => "cid,parent_id,name,is_parent",
+      :parent_cid => 0
+    }
+
+    begin
+      OpenTaobao.post!(params)
+    rescue OpenTaobao::Error => e
+      msg = MultiJson.decode(e.message)
+      msg.class.should == Hash
+    end
+  end
 end
 
 # OpenTaobao.load(File.expand_path('../taobao.yml',__FILE__))

@@ -1,3 +1,7 @@
+## 2013-09023 - v0.2.1 released.
+
+* change Error message to json string.
+
 ## 2013-08-25 - v0.2.0 released.
 
 * Besides HTTP `get`, `post` is supported.
