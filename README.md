@@ -39,7 +39,7 @@ Open the file and configure it with your taobao info.
 
 Notice: `app_key`, `secret_key`, `endpoint` must be included in your YAML file, otherwise OpenTaobao.load will fail.
 
-The `app_key` and `secret_key` are avaliable by ENV['TAOBAO_API_KEY'], ENV['TAOBAO_SECRET_KEY'] out of the box, you can use them if you use same keys for OmniauthTaobao or other taobao api.
+The `app_key` and `secret_key` are avaliable by `ENV['TAOBAO_API_KEY']`, `ENV['TAOBAO_SECRET_KEY']` out of the box if you use same keys for other taobao related gems, e.g. omniauth-taobao.
 
 call `OpenTaobao.get` or `OpenTaoboa.post`，with taobao parameters：
 
